@@ -1,15 +1,9 @@
-<h1>Video#new</h1>
-<p>Find me in app/views/video/new.html.erb</p>
-
 <h1>New Video</h1>
 
-<form action="/videos" method="post">
-
-Title: <input type="text" name="video[title]"><br>
-Description: <input type="text" name="video[description]"><br>
-Youtube ID: <input type="text" name="video[youtube_id]"><br>
-<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-<input type="submit" value="submit">
-</form>
-
+<%= simple_form_for(@video) do |f| %>
+  <%= f.input :title %>
+  <%= f.input :description %>
+  <%= f.input :youtube_id %>
+  <%= f.button :submit %>
+<% end %>
 
