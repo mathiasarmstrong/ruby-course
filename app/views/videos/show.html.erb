@@ -4,3 +4,19 @@
 <%= @video.title %> </br>
 <%= @video.description %> </br>
 <iframe width="560" height="315" src="//www.youtube.com/embed/<%=@video.youtube_id%>" frameborder="0" allowfullscreen></iframe> </br>
+
+<%= form_for @comment do |f| %>
+  <%= f.text_field :message %>
+  <%= f.hidden_field :video_id, :value => @comment.video.id %>
+
+  <%= f.submit :message %>
+<% end %>
+
+<ul>
+
+  <% @video.comments.each do |comment| %>
+    <li><%= comment.message %></li>
+  <% end %>
+
+</ul>
+
