@@ -64,7 +64,6 @@ class Library
 
   def get_borrower(book_id)
     @borrowers.each do|borrower|
-      puts self.borrowers[1]
       borrower.books.each{|book| book.id==book_id ? (return borrower.name) : nil}
     end
   end
@@ -74,7 +73,6 @@ class Library
     person = self.get_borrower(book.id)
     book.check_in
     self.borrowers.each_with_index do |borrower, index| 
-      puts "hello"
       if borrower.name == person 
         person = borrowers[index] 
         self.borrowers[index]=nil
