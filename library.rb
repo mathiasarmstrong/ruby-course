@@ -52,7 +52,6 @@ class Library
   end
 
   def check_out_book(book_id, borrower)
-    puts borrower.books.length
     if borrower.books.length<1
       if @books[book_id].status == 'available' 
         borrower.books << @books[book_id]
@@ -65,6 +64,7 @@ class Library
 
   def get_borrower(book_id)
     @borrowers.each do|borrower|
+      puts self.borrowers[1]
       borrower.books.each{|book| book.id==book_id ? (return borrower.name) : nil}
     end
   end
@@ -72,21 +72,28 @@ class Library
 
   def check_in_book(book)
     person = self.get_borrower(book.id)
+    book.check_in
     self.borrowers.each_with_index do |borrower, index| 
+      puts "hello"
       if borrower.name == person 
-        puts borrower
         person = borrowers[index] 
         self.borrowers[index]=nil
+        self.borrowers.compact!
       end
     end
-
     person.books.each_with_index{|borrowed_book, index| borrowed_book==book ? person.books[index]=nil : nil}
-    book.check_in
+    
   end
 
   def available_books
+    availablebooks=[]
+    @books.each{|book| book.status=="available" ? availablebooks<<book : nil}
+    return availablebooks
   end
 
   def borrowed_books
+    borrowedbooks = []
+    @books.each{|book| book.status!="available" ? borrowedbooks<<book : nil}
+    return borrowedbooks
   end
 end
