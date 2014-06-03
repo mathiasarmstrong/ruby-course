@@ -1,14 +1,31 @@
 
 class Book
-  attr_reader :author, :title, :id, :status
+  attr_reader :author, :title, :id, :status, :rating
 
-  def initialize(title, author, id = nil)
+  def initialize(title, author, id = nil, year_published = "unknown", edition="unknown")
     @author = author
     @title  = title
     @id = id
     @status='available'
+    @year_published=year_published
+    @edition=edition
+    @rating=[]
   end
-
+  
+  def rate(number)
+    if number>=0
+      @rating<<number
+      sum=0
+      @rating.each{|number| sum=sum+number}
+      if @rating.length>0
+        average=sum/@rating.length
+        return "The average rating for this book is #{average}"
+      else
+        return "The average rating for this book is 0"
+      end
+    end
+  end
+  
   def check_out
     if @status == 'available'
       @status = 'checked_out'
@@ -35,6 +52,9 @@ class Borrower
   def initialize(name)
     @name = name
     @books=[]
+  end
+  def rate_book(book_name, rating)
+    @books.each{|book| book_name==book.name ? book.rate(rating) : nil}
   end
 end
 
