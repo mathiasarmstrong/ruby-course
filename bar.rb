@@ -37,4 +37,7 @@ class Item
     @price=price
     [@name,@price]
   end
+  def price
+    Time.now.hour==15 ? @price/2 : @price
+  end
 end

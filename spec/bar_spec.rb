@@ -84,13 +84,13 @@ describe Bar do
   describe '#happy_hour?', :pending => false do
     it "knows when it is happy hour (3:00pm to 4:00pm)" do
       # TODO: CONTROL TIME
-      Time.stub(:now).and_return(Time.new(2014,5,5,3,30))
+      Time.stub(:now).and_return(Time.new(2014,5,5,15,30))
       expect(@bar.happy_hour?).to eq(true)
     end
 
     it "is not happy hour otherwise" do
       # TODO: CONTROL TIME
-      Time.stub(:now).and_return(Time.new(2014,5,5,5,30))
+      Time.stub(:now).and_return(Time.new(2014,5,5,17,30))
       expect(@bar.happy_hour?).to eq(false)
     end
   end
@@ -98,7 +98,7 @@ describe Bar do
   context "During normal hours" do
     # TODO: WRITE TESTS TO ENSURE BAR KNOWS NOT TO DISCOUNT
       describe '#happy_discount?', :pending => false do
-    it "knows not to give a discount before happy hour (8:00pm to 2:59pm)" do
+    it "knows not to give a discount before happy hour (8:00am to 2:59pm)" do
       # TODO: CONTROL TIME
       Time.stub(:now).and_return(Time.new(2014,5,5,8,30))
       @bar.happy_discount=1
@@ -106,9 +106,9 @@ describe Bar do
 
     end
 
-    it "knows not to give a discount after happy hour 4:01 to 1:00am" do
+    it "knows not to give a discount after happy hour 4:01pm to 1:00am" do
       # TODO: CONTROL TIME
-      Time.stub(:now).and_return(Time.new(2014,5,5,4,30))
+      Time.stub(:now).and_return(Time.new(2014,5,5,16,30))
       @bar.happy_discount=1
       expect(@bar.happy_discount).to eq(0)
     end
@@ -119,7 +119,7 @@ describe Bar do
     # TODO: WRITE TESTS TO ENSURE BAR DISCOUNTS DURING HAPPY HOUR
       it "knows to give a discount during happy hour (3:00pm to 4:00pm)" do
       # TODO: CONTROL TIME
-      Time.stub(:now).and_return(Time.new(2014,5,5,3,30))
+      Time.stub(:now).and_return(Time.new(2014,5,5,15,30))
       @bar.happy_discount=1
       expect(@bar.happy_discount).to eq(1)
 
