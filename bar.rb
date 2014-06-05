@@ -27,7 +27,7 @@ class Bar
     end
   end
   def happy_hour?
-    Time.now.hour==3
+    Time.now.hour==15
   end
 end
 class Item
