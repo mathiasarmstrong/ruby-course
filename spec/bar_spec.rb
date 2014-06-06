@@ -120,9 +120,9 @@ describe Bar do
   end
 
 
-  context "During happy hours" do
+  context "During happy hour (3:00pm to 4:00pm)" do
     # TODO: WRITE TESTS TO ENSURE BAR DISCOUNTS DURING HAPPY HOUR
-      it "knows to give a discount during happy hour (3:00pm to 4:00pm)" do
+      it "knows to give a discount during" do
       # TODO: CONTROL TIME
       Time.stub(:now).and_return(Time.new(2014,5,5,15,30))
       @bar.add_menu_item('Cosmo', 5.40)
@@ -131,18 +131,47 @@ describe Bar do
       expect(@bar.menu_items[0].price).to eq(5.4*0.75)
     end
   end
-  # context "During slow days" do
-  #   # TODO: WRITE TESTS TO ENSURE BAR DISCOUNTS DURING HAPPY HOUR
-  #     it "knows to give a 50% discount during on slow days" do
-  #     # TODO: CONTROL TIME
-  #     Time.stub(:now).and_return(Time.new(2014,5,5,15,30))
-  #     @bar.add_menu_item('Cosmo', 5.40)
-  #     @bar.add_menu_item('Salty Dog', 7.80)
-  #     @bar.happy_discount= 0.5
-  #     expect(@bar.menu_items[0].price).to eq(5.4/2)
-  #   end
-  # end
+  context "During slow days" do
+    # TODO: WRITE TESTS TO ENSURE BAR DISCOUNTS DURING HAPPY HOUR
+      it "knows to give a 50% discount" do
+      # TODO: CONTROL TIME
+      Time.stub(:now).and_return(Time.new(2014,5,3,15,30))
+      @bar.add_menu_item('Cosmo', 5.40)
+      @bar.add_menu_item('Salty Dog', 7.80)
+      @bar.happy_discount= 0.5
+      expect(@bar.menu_items[0].price).to eq(5.4/2)
+    end
+    it "but a 25% discount every other day" do
+      # TODO: CONTROL TIME
+      Time.stub(:now).and_return(Time.new(2014,5,5,15,30))
+      @bar.add_menu_item('Cosmo', 5.40)
+      @bar.add_menu_item('Salty Dog', 7.80)
+      @bar.happy_discount= 0.5
+      expect(@bar.menu_items[0].price).to eq(5.4 *0.75)
+    end
+  end
+
+    context "at any time" do
+      it "we can specify that a drink does not get a discount" do
+
+      @bar.add_menu_item('Cosmo', 5.40)
+      @bar.add_menu_item('Salty Dog', 7.80)
+      @bar.happy_discount= 0.5
+      @bar.remove_discount('Cosmo')
+      expect(@bar.menu_items[0].price).to eq(5.40)
 
 
-
+    end
+     it "and we can add a discount too" do
+      # TODO: CONTROL TIME
+      Time.stub(:now).and_return(Time.new(2014,5,5,15,30))
+      @bar.add_menu_item('Cosmo', 5.40)
+      @bar.add_menu_item('Salty Dog', 7.80)
+      @bar.happy_discount= 0.5
+      @bar.remove_discount('Cosmo')
+      expect(@bar.menu_items[0].price).to eq(5.40)
+      @bar.add_discount('Cosmo')
+      expect(@bar.menu_items[0].price).to eq(5.4 *0.75)
+    end
+  end
 end

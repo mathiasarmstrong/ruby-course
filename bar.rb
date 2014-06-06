@@ -8,8 +8,8 @@ class Bar
     @happy_discount=0
   end
 
-  def add_menu_item(name, price, discount=@happy_discount)
-    menu_items<<Item.new(name,price, discount)
+  def add_menu_item(name, price, discount=@happy_discount, gets_discount=true)
+    menu_items<<Item.new(name,price, discount, gets_discount)
   end
 
   def happy_discount
@@ -32,6 +32,14 @@ class Bar
     end
   end
 
+  def remove_discount(name)
+    item= menu_items.select{|arg| arg.name == name}
+   item.length!=0 ? item[0].take_off_discount : nil
+  end
+  def add_discount(name)
+    item= menu_items.select{|arg| arg.name == name}
+   item.length!=0 ? item[0].give_discount : nil
+  end
   def happy_hour?
     Time.now.hour==15
   end
@@ -39,14 +47,21 @@ end
 
 
 class Item
-  attr_reader :name
+  attr_reader :name, :gets_discount
   attr_accessor :discount
-  def initialize(name, price, discount)
+  def initialize(name, price, discount, gets_discount)
     @name=name
     @price=price
+    @gets_discount=gets_discount
   end
   def price
-    Time.now.hour==15 ? @price*@discount : @price
+    Time.now.hour==15 && @gets_discount ? @price*@discount : @price
+  end
+  def take_off_discount
+    @gets_discount=false
+  end
+  def give_discount
+    @gets_discount=true
   end
 
 end
