@@ -43,6 +43,14 @@ module Exercises
   #  - Returns the max number of the given array
   def self.ex4(array)
     # TODO
+    max=array[0]
+    array.each do |arg|
+      # binding.pry
+      if arg.is_a?(Fixnum)
+        arg>max ? max = arg : nil
+      end
+    end
+    max.is_a?(Fixnum) ? (return max) : (return "There was not a number in the array")
   end
 
   # Exercise 5
