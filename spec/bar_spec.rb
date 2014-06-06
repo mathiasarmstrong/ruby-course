@@ -46,6 +46,7 @@ describe Bar do
   end
 
   it "only returns a discount when it's happy hour" do
+    Time.stub(:now).and_return(Time.new(2014,5,3,15,30))
     @bar.happy_discount = 0.5
     # HINT: You need to write your own getter
 
@@ -97,7 +98,6 @@ describe Bar do
 
   context "During normal hours" do
     # TODO: WRITE TESTS TO ENSURE BAR KNOWS NOT TO DISCOUNT
-      describe '#happy_discount?', :pending => false do
     it "knows not to give a discount before happy hour (8:00am to 2:59pm)" do
       # TODO: CONTROL TIME
       Time.stub(:now).and_return(Time.new(2014,5,5,8,30))
@@ -111,24 +111,38 @@ describe Bar do
       Time.stub(:now).and_return(Time.new(2014,5,5,16,30))
       @bar.happy_discount=1
       expect(@bar.happy_discount).to eq(0)
+
+      @bar.add_menu_item('Cosmo', 5.40)
+      @bar.add_menu_item('Salty Dog', 7.80)
+      @bar.happy_discount= 0.5
+      expect(@bar.menu_items[0].price).to eq(5.4)
     end
   end
-  end
+
 
   context "During happy hours" do
     # TODO: WRITE TESTS TO ENSURE BAR DISCOUNTS DURING HAPPY HOUR
       it "knows to give a discount during happy hour (3:00pm to 4:00pm)" do
       # TODO: CONTROL TIME
       Time.stub(:now).and_return(Time.new(2014,5,5,15,30))
-
       @bar.add_menu_item('Cosmo', 5.40)
       @bar.add_menu_item('Salty Dog', 7.80)
       @bar.happy_discount= 0.5
-      expect(@bar.menu_items[0].price).to eq(5.4/2)
-
-
-
+      expect(@bar.menu_items[0].price).to eq(5.4*0.75)
     end
-
   end
+  # context "During slow days" do
+  #   # TODO: WRITE TESTS TO ENSURE BAR DISCOUNTS DURING HAPPY HOUR
+  #     it "knows to give a 50% discount during on slow days" do
+  #     # TODO: CONTROL TIME
+  #     Time.stub(:now).and_return(Time.new(2014,5,5,15,30))
+  #     @bar.add_menu_item('Cosmo', 5.40)
+  #     @bar.add_menu_item('Salty Dog', 7.80)
+  #     @bar.happy_discount= 0.5
+  #     expect(@bar.menu_items[0].price).to eq(5.4/2)
+  #   end
+  # end
+
+
+
 end

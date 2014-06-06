@@ -16,7 +16,8 @@ class Bar
     self.happy_hour? ? (return @happy_discount) : (return 0)
   end
 
-  def happy_discount=(amount)
+  def happy_discount=(amount= 0.50)
+    Time.now.day==1||Time.now.day==3 ? nil : (amount = amount/2)
     if amount<=1.0
       if amount>=0
         if @menu_items.length>0
@@ -45,7 +46,7 @@ class Item
     @price=price
   end
   def price
-    puts @discount
     Time.now.hour==15 ? @price*@discount : @price
   end
+
 end
