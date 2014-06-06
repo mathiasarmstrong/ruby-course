@@ -6,6 +6,7 @@ class Bar
     @name=name
     @menu_items=[]
     @happy_discount=0
+    @popular_items={}
   end
 
   def add_menu_item(name, price, discount=@happy_discount, gets_discount=true)
@@ -43,6 +44,19 @@ class Bar
   def happy_hour?
     Time.now.hour==15
   end
+  def item_purchase(name)
+    popular_items[name]||=0
+    popular_items[name]+=1
+  end
+  def popular_items
+    if @popular_items.length >= 1
+      food = @popular_items.sort_by{|key, value| value}
+      list=""
+      food.each_with_index{|pop, index| index<=5 ? list+" ##{index+1} : #{pop}" }
+      return list
+    else
+      return "There is no food available"
+    end
 end
 
 

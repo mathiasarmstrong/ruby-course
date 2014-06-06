@@ -173,5 +173,16 @@ describe Bar do
       @bar.add_discount('Cosmo')
       expect(@bar.menu_items[0].price).to eq(5.4 *0.75)
     end
+    it "we can sell an item" do
+      # TODO: CONTROL TIME
+      Time.stub(:now).and_return(Time.new(2014,5,5,15,30))
+      @bar.add_menu_item('Cosmo', 5.40)
+      @bar.add_menu_item('Salty Dog', 7.80)
+      @bar.happy_discount= 0.5
+      @bar.item_purchase('Cosmo')
+      expect(bar.popular_items).not_to raise_error
+      @bar.item_purchase('Cosmo')
+      expect(bar.popular_items).to be_a(String)
+    end
   end
 end
