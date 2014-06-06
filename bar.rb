@@ -15,10 +15,12 @@ class Bar
   def happy_discount
     self.happy_hour? ? (return @happy_discount) : (return 0)
   end
+
   def happy_discount=(amount)
     if amount<=1
       if amount>=0
         @happy_discount=amount
+        @menu_items.each{|arg| arg[2]=amount}
       else
         @happy_discount=0
       end
@@ -26,18 +28,20 @@ class Bar
       @happy_discount=1
     end
   end
+
   def happy_hour?
     Time.now.hour==15
   end
 end
 class Item
-  attr_reader :name, :price
+  attr_reader :name
   def initialize(name, price)
     @name=name
     @price=price
+    @discount=1
     [@name,@price]
   end
   def price
-    Time.now.hour==15 ? @price/2 : @price
+    Time.now.hour==15 ? @price*@discount : @price
   end
 end
