@@ -40,6 +40,12 @@ describe Exercises  do
         expect(x).to be_nil
       end
     end
+    context 'array has only 1 element' do
+      it 'returns nil' do
+        x=Exercises.ex2([['truck']])
+        expect(x).to be_nil
+      end
+    end
     context "array has several elements" do
       it "returns the second element of the array" do
         x=Exercises.ex2([1,["friends","girls"],{"dog"=>2},"this is interesting"])
@@ -47,5 +53,8 @@ describe Exercises  do
       end
     end
   end
+
+#   describe 'ex3' do
+#     context 'array'
 
 end
