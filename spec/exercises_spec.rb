@@ -1,4 +1,5 @@
 require 'rubygems'
+require'pry-debugger'
 require_relative '../exercises.rb'
 
 describe Exercises  do
@@ -54,7 +55,33 @@ describe Exercises  do
     end
   end
 
-#   describe 'ex3' do
-#     context 'array'
+  describe 'ex3' do
+    context 'array with no elements'do
+      it 'returns nil' do
+        x = Exercises.ex3([])
+        expect(x).to be_nil
+      end
+    end
+
+    context 'array with non-number elements'do
+      it 'returns string "there are non-number elements!"' do
+        x = Exercises.ex3([1,2,3,4,"hello"])
+        expect(x).to eq("There are non-number elements!")
+      end
+    end
+    context 'array 1 number element'do
+      it 'returns that number"' do
+        x = Exercises.ex3([2])
+        expect(x).to eq(2)
+      end
+    end
+    context 'array many number elements'do
+      it 'returns the sum of the numbers in the array"' do
+        x = Exercises.ex3([5,2,6,7,11])
+        expect(x).to eq(31)
+      end
+    end
+  end
+
 
 end

@@ -25,6 +25,18 @@ module Exercises
   #  - Returns the sum of the given array of numbers
   def self.ex3(array)
     # TODO
+
+    sum=0
+    # binding.pry
+    array.each do |arg|
+      if arg.is_a?(Fixnum)
+        sum = sum+arg
+      else
+        return "There are non-number elements!"
+      end
+    end
+    array.length==0 ? (return nil) : nil
+    return sum
   end
 
   # Exercise 4
