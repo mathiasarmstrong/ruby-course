@@ -8,8 +8,8 @@ class Bar
     @happy_discount=0
   end
 
-  def add_menu_item(name, price)
-    menu_items<<Item.new(name,price)
+  def add_menu_item(name, price, discount=@happy_discount)
+    menu_items<<Item.new(name,price, discount)
   end
 
   def happy_discount
@@ -17,10 +17,12 @@ class Bar
   end
 
   def happy_discount=(amount)
-    if amount<=1
+    if amount<=1.0
       if amount>=0
+        if @menu_items.length>0
+          @menu_items.each{|arg| arg.discount =(1-amount)}
+        end
         @happy_discount=amount
-        @menu_items.each{|arg| arg[2]=amount}
       else
         @happy_discount=0
       end
@@ -33,15 +35,17 @@ class Bar
     Time.now.hour==15
   end
 end
+
+
 class Item
   attr_reader :name
-  def initialize(name, price)
+  attr_accessor :discount
+  def initialize(name, price, discount)
     @name=name
     @price=price
-    @discount=1
-    [@name,@price]
   end
   def price
+    puts @discount
     Time.now.hour==15 ? @price*@discount : @price
   end
 end

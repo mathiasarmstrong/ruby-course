@@ -120,8 +120,13 @@ describe Bar do
       it "knows to give a discount during happy hour (3:00pm to 4:00pm)" do
       # TODO: CONTROL TIME
       Time.stub(:now).and_return(Time.new(2014,5,5,15,30))
-      @bar.happy_discount=1
-      expect(@bar.happy_discount).to eq(1)
+
+      @bar.add_menu_item('Cosmo', 5.40)
+      @bar.add_menu_item('Salty Dog', 7.80)
+      @bar.happy_discount= 0.5
+      expect(@bar.menu_items[0].price).to eq(5.4/2)
+
+
 
     end
 
