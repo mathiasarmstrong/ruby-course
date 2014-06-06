@@ -1,7 +1,9 @@
 require 'time' # you're gonna need it
 
 class Bar
- attr_reader :name, :menu_items, :popular_items
+  attr_reader :name, :menu_items, :popular_items
+
+#initializes name of bar as well as the popular_items, menu_items, and happy_dicount
   def initialize(name)
     @name=name
     @menu_items=[]
@@ -9,14 +11,17 @@ class Bar
     @popular_items={}
   end
 
+#allows us to create new menu items and sets the default to allow a discount during happy hour
   def add_menu_item(name, price, discount=@happy_discount, gets_discount=true)
     menu_items<<Item.new(name,price, discount, gets_discount)
   end
 
+#tells us what the generic happy hour discount is
   def happy_discount
     self.happy_hour? ? (return @happy_discount) : (return 0)
   end
 
+#allows us to set a generic happy hour discount that is defaulted to 50%
   def happy_discount=(amount= 0.50)
     Time.now.day==1||Time.now.day==3 ? nil : (amount = amount/2)
     if amount<=1.0
@@ -33,14 +38,27 @@ class Bar
     end
   end
 
+#this allows us to remove the happy hour discount from an item
   def remove_discount(name)
     item= menu_items.select{|arg| arg.name == name}
    item.length!=0 ? item[0].take_off_discount : nil
   end
+
+#this allows us to add the default discount to an item
   def add_discount(name)
     item= menu_items.select{|arg| arg.name == name}
    item.length!=0 ? item[0].give_discount : nil
   end
+
+#this allows us to add a special discount to an item
+  def add_special_discount(name, special_discount)
+      item= menu_items.select{|arg| arg.name == name}
+    if item.length!=0
+      item[0].discount= special_discount
+      item[0].give_discount
+    end
+  end
+
   def happy_hour?
     Time.now.hour==15
   end
@@ -65,17 +83,25 @@ end
 class Item
   attr_reader :name, :gets_discount
   attr_accessor :discount
+
+#initializes the name price discount and whether or not a item recieves the discount
   def initialize(name, price, discount, gets_discount)
     @name=name
     @price=price
     @gets_discount=gets_discount
   end
+
+#makes our price getter method and allows us to adjust the price based on whether or not it is happy hour
   def price
     Time.now.hour==15 && @gets_discount ? @price*@discount : @price
   end
+
+#method that allows us to remove the discount if we want to
   def take_off_discount
     @gets_discount=false
   end
+
+#method that allows us to activate the discount for happy hour
   def give_discount
     @gets_discount=true
   end
