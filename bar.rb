@@ -1,7 +1,7 @@
 require 'time' # you're gonna need it
 
 class Bar
- attr_reader :name, :menu_items
+ attr_reader :name, :menu_items, :popular_items
   def initialize(name)
     @name=name
     @menu_items=[]
@@ -45,18 +45,20 @@ class Bar
     Time.now.hour==15
   end
   def item_purchase(name)
-    popular_items[name]||=0
-    popular_items[name]+=1
+    # binding.pry
+    @popular_items[name]||=0
+    @popular_items[name]+=1
   end
-  def popular_items
+  def print_popular_items
     if @popular_items.length >= 1
       food = @popular_items.sort_by{|key, value| value}
       list=""
-      food.each_with_index{|pop, index| index<=5 ? list+" ##{index+1} : #{pop}" }
+      food.each_with_index{|pop, index| index<=4 ? list=list+"##{index+1} : #{pop[0]} \n" : nil }
       return list
     else
       return "There is no food available"
     end
+  end
 end
 
 

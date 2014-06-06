@@ -180,9 +180,10 @@ describe Bar do
       @bar.add_menu_item('Salty Dog', 7.80)
       @bar.happy_discount= 0.5
       @bar.item_purchase('Cosmo')
-      expect(bar.popular_items).not_to raise_error
       @bar.item_purchase('Cosmo')
-      expect(bar.popular_items).to be_a(String)
+      expect(@bar.print_popular_items).to eq("#1 : Cosmo \n")
+      @bar.item_purchase('Salty Dog')
+      expect(@bar.print_popular_items).to be_a(String)
     end
   end
 end
