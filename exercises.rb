@@ -44,12 +44,14 @@ module Exercises
   def self.ex4(array)
     # TODO
     max=array[0]
+    max.nil? ? (return nil) : nil
     array.each do |arg|
       # binding.pry
       if arg.is_a?(Fixnum)
         arg>max ? max = arg : nil
       end
     end
+
     max.is_a?(Fixnum) ? (return max) : (return "There was not a number in the array")
   end
 
@@ -57,6 +59,7 @@ module Exercises
   #  - Iterates through an array and `puts` each element
   def self.ex5(array)
     # TODO
+    array[0].nil? ? (puts nil) : (array.each{|arg| puts arg})
   end
 
   # Exercise 6
@@ -105,6 +108,16 @@ class RPS
   #
   # You will be using this class in the following class, which will let players play
   # RPS through the terminal.
+  attr_reader :people
+  def initialize(name1, name2)
+    @people={}
+    @people[name1.to_sym]=0
+    @people[name2.to_sym]=0
+  end
+
+  def play
+  end
+
 end
 
 

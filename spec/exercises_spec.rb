@@ -86,7 +86,7 @@ describe Exercises  do
   describe 'ex4' do
     context 'recieves empty array'do
       it 'returns nil'do
-        x = Exercises.ex3([])
+        x = Exercises.ex4([])
         expect(x).to be_nil
       end
     end
@@ -111,5 +111,43 @@ describe Exercises  do
       end
     end
   end
+
+  describe 'ex5' do
+    context 'recieves empty array'do
+      it 'returns nil'do
+        x = Exercises.ex5([])
+        expect(x).to be_nil
+      end
+    end
+    context 'recieves array with one element'do
+      it 'puts that element to the screen'do
+        Exercises.should_receive(:puts).with(5)
+        Exercises.ex5([5])
+      end
+    end
+    context 'recieves array with multiple elements'do
+      xit 'puts that element to the screen'do
+        Exercises.should_receive(:puts).with(5)
+        Exercises.ex5([5, 4])
+      end
+    end
+  end
+
+
+
+
+  describe 'RPS' do
+    context 'recieves two strings to initialize gameplay' do
+      it "has 2 players with a win count of zero" do
+        test = RPS.new("tom", "Jerry")
+          expect(test.people[:tom]).to eq(0)
+          expect(test.people[:Jerry]).to eq(0)
+      end
+    end
+
+  end
+
+
+
 
 end
