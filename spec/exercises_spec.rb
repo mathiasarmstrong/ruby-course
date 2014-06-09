@@ -125,14 +125,51 @@ describe Exercises  do
         Exercises.ex5([5])
       end
     end
-    context 'recieves array with multiple elements'do
-      xit 'puts that element to the screen'do
-        Exercises.should_receive(:puts).with(5)
-        Exercises.ex5([5, 4])
+    context 'recieves array with multiple elements' do
+      before do
+      $stdout = StringIO.new
+      end
+
+      after(:all) do
+      $stdout = STDOUT
+      end
+
+      it "puts each element" do
+      Exercises.ex5([1,2,3,4])
+      expect($stdout.string).to match("1\n2\n3\n4\n")
       end
     end
   end
-
+  describe "ex6" do
+    context "recieves an array whose last item is not panda" do
+      it "changes the last element of the array to panda" do
+        test=Exercises.ex6(["this",4,"is",true])
+        expect(test[-1]).to eq("panda")
+      end
+    end
+    context "recieves an array whose last item is panda" do
+      it "changes the last element of the array to Godzilla" do
+        test=Exercises.ex6(["this",4,"is","panda"])
+        expect(test[-1]).to eq("GODZILLA")
+      end
+    end
+  end
+  describe "ex7" do
+    context "recieves an array that contains a 'str'" do
+      it "adds 'str' to the end of the array" do
+        str='this'
+        test=Exercises.ex7(["this",str,"is",true], str)
+        expect(test[-1]).to eq(str)
+      end
+    end
+    context "recieves an array that does not contain 'str'" do
+      it "does not change the array" do
+        str = 'green'
+        test=Exercises.ex7(["this",4,"is","panda"],str)
+        expect(test[-1]).to eq("panda")
+      end
+    end
+  end
 
 
 

@@ -68,6 +68,8 @@ module Exercises
   #    it to 'GODZILLA' instead
   def self.ex6(array)
     # TODO
+    array[-1] != "panda" ? array[-1] = "panda" : array[-1] = "GODZILLA"
+    return array
   end
 
   # Exercise 7
@@ -75,12 +77,16 @@ module Exercises
   #    add `str` to the end of the array
   def self.ex7(array, str)
     # TODO
+    array.each do |arg|
+      arg==str ? (return array << str) : nil
+    end
   end
 
   # Exercise 8
   #  - `people` is an array of hashes. Each hash is like the following:
   #    { :name => 'Bob', :occupation => 'Builder' }
   #    Iterate through `people` and print out their name and occupation.
+
   def self.ex8(people)
     # TODO
   end
@@ -123,7 +129,7 @@ class RPS
         when ['r', 's'], ['s', 'p'], ['p', 'r']
           @people[@person1.to_sym]+= 1
         when ['s', 'r'], ['p', 's'], ['r', 'p']
-          @people[@person1.to_sym] += 1
+          @people[@person2.to_sym] += 1
       end
     else
       if @people[@person1] == 2
@@ -131,8 +137,9 @@ class RPS
       else
         return "#{@person2} already won!"
       end
-    return @person1 if @people[@person1.to_sym] == 2
-    return @person2 if @people[@person2.to_sym] == 2
+      return @person1 if @people[@person1.to_sym] == 2
+      return @person2 if @people[@person2.to_sym] == 2
+    end
   end
 end
 
@@ -150,21 +157,21 @@ class RPSPlayer
   #
   # When the game ends, ask if the player wants to play again.
   def start
-    puts "Welcome to Rock Paper Scissors"
-    puts "player 1 name?"
-    player1=gets.chomp
-    puts "player 2 name?"
-    player2=gets.chomp
-    game=RPS.new(player1,player2)
-    puts "please type r for rock  p for paper and s for scissors "
-    while game.play("r","r") == nil
-      puts "please type r for rock  p for paper and s for scissors "
-      puts "player 1:"
-      move1 = STDIN.noecho(&:gets)
-      puts "player 2:"
-      move2 = STDIN.noecho(&:gets)
-      game.play(move1.chomp,move2.chomp)
-    end
+    # puts "Welcome to Rock Paper Scissors"
+    # puts "player 1 name?"
+    # player1=gets.chomp
+    # puts "player 2 name?"
+    # player2=gets.chomp
+    # game=RPS.new(player1,player2)
+    # puts "please type r for rock  p for paper and s for scissors "
+    # while game.play("r","r") == nil
+    #   puts "please type r for rock  p for paper and s for scissors "
+    #   puts "player 1:"
+    #   move1 = STDIN.noecho(&:gets)
+    #   puts "player 2:"
+    #   move2 = STDIN.noecho(&:gets)
+    #   game.play(move1.chomp,move2.chomp)
+    # end
     # TODO
 
     # PRO TIP: Instead of using plain `gets` for grabbing a player's
