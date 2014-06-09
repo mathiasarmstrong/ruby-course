@@ -142,9 +142,19 @@ describe Exercises  do
         test = RPS.new("tom", "Jerry")
           expect(test.people[:tom]).to eq(0)
           expect(test.people[:Jerry]).to eq(0)
+          expect(test.person1).to eq("tom")
+          expect(test.person2).to eq("Jerry")
       end
     end
-
+  end
+  describe '#play' do
+    context 'Game is active' do
+      it 'recieves 2 strings and determines the winner' do
+        test = RPS.new("tom", "Jerry")
+        test.play("r","p")
+        expect(test.people[:Jerry]).to eq(1)
+      end
+    end
   end
 
 

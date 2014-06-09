@@ -108,16 +108,32 @@ class RPS
   #
   # You will be using this class in the following class, which will let players play
   # RPS through the terminal.
-  attr_reader :people
+  attr_reader :people, :person1, :person2
   def initialize(name1, name2)
     @people={}
+    @person1=name1
+    @person2=name2
     @people[name1.to_sym]=0
     @people[name2.to_sym]=0
   end
 
-  def play
+  def play(p1_move, p2_move)
+    unless @people[@person1.to_sym] == 2 || @people[@person2.to_sym] == 2
+      case [p1_move, p2_move]
+        when ['r', 's'], ['s', 'p'], ['p', 'r']
+          @people[@person1.to_sym]+= 1
+        when ['s', 'r'], ['p', 's'], ['r', 'p']
+          @people[@person1.to_sym] += 1
+      end
+    else
+      if @people[@person1] == 2
+        return "#{@person1} already won!"
+      else
+        return "#{@person2} already won!"
+      end
+    return @person1 if @people[@person1.to_sym] == 2
+    return @person2 if @people[@person2.to_sym] == 2
   end
-
 end
 
 
@@ -134,7 +150,21 @@ class RPSPlayer
   #
   # When the game ends, ask if the player wants to play again.
   def start
-
+    puts "Welcome to Rock Paper Scissors"
+    puts "player 1 name?"
+    player1=gets.chomp
+    puts "player 2 name?"
+    player2=gets.chomp
+    game=RPS.new(player1,player2)
+    puts "please type r for rock  p for paper and s for scissors "
+    while game.play("r","r") == nil
+      puts "please type r for rock  p for paper and s for scissors "
+      puts "player 1:"
+      move1 = STDIN.noecho(&:gets)
+      puts "player 2:"
+      move2 = STDIN.noecho(&:gets)
+      game.play(move1.chomp,move2.chomp)
+    end
     # TODO
 
     # PRO TIP: Instead of using plain `gets` for grabbing a player's
