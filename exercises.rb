@@ -89,6 +89,12 @@ module Exercises
 
   def self.ex8(people)
     # TODO
+    people.each do |arg|
+      keys = arg.keys
+      name = arg[keys[0]]
+      occupation = arg[keys[1]]
+      puts "#{name} the #{occupation}"
+    end
   end
 
   # Exercise 9
@@ -97,6 +103,16 @@ module Exercises
   # Hint: Google for the wikipedia article on leap years
   def self.ex9(time)
     # TODO
+    year1=time.year
+    if year1%4!=0
+      false
+    elsif year1 !=100
+      true
+    elsif year1 !=400
+      false
+    else
+      true
+    end
   end
 end
 
@@ -119,26 +135,32 @@ class RPS
     @people={}
     @person1=name1
     @person2=name2
-    @people[name1.to_sym]=0
-    @people[name2.to_sym]=0
+    @people[name1]=0
+    @people[name2]=0
   end
 
   def play(p1_move, p2_move)
-    unless @people[@person1.to_sym] == 2 || @people[@person2.to_sym] == 2
-      case [p1_move, p2_move]
-        when ['r', 's'], ['s', 'p'], ['p', 'r']
-          @people[@person1.to_sym]+= 1
-        when ['s', 'r'], ['p', 's'], ['r', 'p']
-          @people[@person2.to_sym] += 1
+    if ['r','s','p'].include?(p1_move) && ['r','s','p'].include?(p2_move)
+      if @people[@person1] != 2 && @people[@person2] != 2
+        case [p1_move, p2_move]
+          when ['r', 's'], ['s', 'p'], ['p', 'r']
+            @people[@person1] += 1
+            puts "#{@person1} won the round!"
+          when ['s', 'r'], ['p', 's'], ['r', 'p']
+            @people[@person2] += 1
+            puts "#{@person2} won the round!"
+          # else
+          #   puts "that round was a tie"
+        end
+      else
+        if @people[@person1] == 2
+          return "#{@person1} won the game!"
+        else
+          return "#{@person2} won the game!"
+        end
       end
     else
-      if @people[@person1] == 2
-        return "#{@person1} already won!"
-      else
-        return "#{@person2} already won!"
-      end
-      return @person1 if @people[@person1.to_sym] == 2
-      return @person2 if @people[@person2.to_sym] == 2
+      puts "please only put r p or s!"
     end
   end
 end
@@ -157,21 +179,24 @@ class RPSPlayer
   #
   # When the game ends, ask if the player wants to play again.
   def start
-    # puts "Welcome to Rock Paper Scissors"
-    # puts "player 1 name?"
-    # player1=gets.chomp
-    # puts "player 2 name?"
-    # player2=gets.chomp
-    # game=RPS.new(player1,player2)
-    # puts "please type r for rock  p for paper and s for scissors "
-    # while game.play("r","r") == nil
-    #   puts "please type r for rock  p for paper and s for scissors "
-    #   puts "player 1:"
-    #   move1 = STDIN.noecho(&:gets)
-    #   puts "player 2:"
-    #   move2 = STDIN.noecho(&:gets)
-    #   game.play(move1.chomp,move2.chomp)
-    # end
+    puts "Welcome to Rock Paper Scissors"
+    puts "player 1 name?"
+    player1=gets.chomp
+    puts "player 2 name?"
+    player2=gets.chomp
+    game=RPS.new(player1,player2)
+    while game.play("r","r") == nil
+      puts "please type r for rock  p for paper and s for scissors "
+      puts "player 1:"
+      move1 = STDIN.noecho(&:gets)
+      puts "player 2:"
+      move2 = STDIN.noecho(&:gets)
+      game.play(move1.chomp,move2.chomp)
+
+    end
+      puts game.play('r','r')
+
+
     # TODO
 
     # PRO TIP: Instead of using plain `gets` for grabbing a player's

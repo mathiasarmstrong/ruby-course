@@ -170,15 +170,64 @@ describe Exercises  do
       end
     end
   end
+  describe "ex8" do
+    context "recieves an array with 1 hash" do
+      before do
+        $stdout = StringIO.new
+      end
+      after(:all) do
+        $stdout = STDOUT
+      end
+      it "prints the name and occupation of each person" do
+        str=[{ :name => 'Bob', :occupation => 'Builder' }]
+
+        Exercises.ex8(str)
+        expect($stdout.string).to match("Bob the Builder\n")
+      end
+    end
+
+    context "recieves an array with multiple hashes" do
+      before do
+        $stdout = StringIO.new
+      end
+      after(:all) do
+        $stdout = STDOUT
+      end
+      it "prints all the names and occupations" do
+        str=[{ :name => 'Bob', :occupation => 'Builder' }, {name: 'Jered', occupation: 'programmer'}]
+        Exercises.ex8(str)
+        expect($stdout.string).to match("Bob the Builder\nJered the programmer\n")
+      end
+    end
+  end
 
 
+  describe 'ex9' do
+    context 'it is not a leap year' do
+      it 'returns false' do
+        Time.stub(:now).and_return(Time.new(2011))
+        test = Exercises.ex9(Time.now)
+        expect(test).to be_false
+      end
+    end
+    context 'it is a leap year' do
+      it 'returns true' do
+        Time.stub(:now).and_return(Time.new(2004))
+        test = Exercises.ex9(Time.now)
+        expect(test).to be_true
+      end
+    end
+  end
+end
 
-  describe 'RPS' do
+
+describe 'RPS' do
+  describe '#initialize' do
     context 'recieves two strings to initialize gameplay' do
       it "has 2 players with a win count of zero" do
         test = RPS.new("tom", "Jerry")
-          expect(test.people[:tom]).to eq(0)
-          expect(test.people[:Jerry]).to eq(0)
+          expect(test.people["tom"]).to eq(0)
+          expect(test.people["Jerry"]).to eq(0)
           expect(test.person1).to eq("tom")
           expect(test.person2).to eq("Jerry")
       end
@@ -189,12 +238,9 @@ describe Exercises  do
       it 'recieves 2 strings and determines the winner' do
         test = RPS.new("tom", "Jerry")
         test.play("r","p")
-        expect(test.people[:Jerry]).to eq(1)
+        expect(test.people["Jerry"]).to eq(1)
       end
     end
   end
-
-
-
-
 end
+
