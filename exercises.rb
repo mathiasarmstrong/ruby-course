@@ -1,4 +1,4 @@
-
+require 'pry-debugger'
 module Exercises
   # Exercise 0
   #  - Triples a given string `str`
@@ -132,35 +132,19 @@ class RPS
   # RPS through the terminal.
   attr_reader :people, :person1, :person2
   def initialize(name1, name2)
-    @people={}
+    @people=Hash.new(0)
     @person1=name1
     @person2=name2
-    @people[name1]=0
-    @people[name2]=0
   end
 
   def play(p1_move, p2_move)
-    if ['r','s','p'].include?(p1_move) && ['r','s','p'].include?(p2_move)
-      if @people[@person1] != 2 && @people[@person2] != 2
-        case [p1_move, p2_move]
-          when ['r', 's'], ['s', 'p'], ['p', 'r']
-            @people[@person1] += 1
-            puts "#{@person1} won the round!"
-          when ['s', 'r'], ['p', 's'], ['r', 'p']
-            @people[@person2] += 1
-            puts "#{@person2} won the round!"
-          # else
-          #   puts "that round was a tie"
-        end
-      else
-        if @people[@person1] == 2
-          return "#{@person1} won the game!"
-        else
-          return "#{@person2} won the game!"
-        end
-      end
-    else
-      puts "please only put r p or s!"
+    case [p1_move, p2_move]
+      when ['r', 's'], ['s', 'p'], ['p', 'r']
+        @people[@person1] += 1
+        @person1
+      when ['s', 'r'], ['p', 's'], ['r', 'p']
+        @people[@person2] += 1
+        @person2
     end
   end
 end
@@ -184,17 +168,21 @@ class RPSPlayer
     player1=gets.chomp
     puts "player 2 name?"
     player2=gets.chomp
-    game=RPS.new(player1,player2)
-    while game.play("r","r") == nil
-      puts "please type r for rock  p for paper and s for scissors "
-      puts "player 1:"
-      move1 = STDIN.noecho(&:gets)
-      puts "player 2:"
-      move2 = STDIN.noecho(&:gets)
-      game.play(move1.chomp,move2.chomp)
 
+    game=RPS.new(player1,player2)
+
+    while game.people[player1] < 2 && game.people[player2] < 2
+      puts "please type r for rock  p for paper and s for scissors "
+      puts "Player 1:"
+      move1=get_move
+      puts 'Player 2:'
+      move2=get_move
+      winner = game.play(move1,move2)
+      winner.nil? ? (puts 'it was a tie') : (puts "#{winner} won the round")
     end
-      puts game.play('r','r')
+
+    game.people[player1] == 2 ? (puts "#{player1} has won the game") : (puts "#{player2} has won the game")
+
 
 
     # TODO
@@ -204,6 +192,19 @@ class RPSPlayer
     #          what the player is typing! :D
     # This is also why we needed to require 'io/console'
     # move = STDIN.noecho(&:gets)
+  end
+
+  def validity_test(move)
+    ['r','p','s'].include?(move)
+  end
+
+  def get_move
+    move = STDIN.noecho(&:gets).chomp
+    while !validity_test(move)
+      puts "please only put a r,s or p"
+      move = STDIN.noecho(&:gets).chomp
+    end
+    move
   end
 end
 
