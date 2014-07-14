@@ -1,9 +1,12 @@
 
+require 'digest/sha1'
+
 module Honkr
   def self.db
     @__db_instance ||= Databases::InMemory.new
   end
 end
+
 
 require_relative './honkr/databases/in_memory.rb'
 
