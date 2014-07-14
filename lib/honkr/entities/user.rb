@@ -16,12 +16,7 @@ module Honkr
 
     def has_password?(password)
       # TODO: Hash incoming password and compare against own password_digest
-      if @password_digest == Digest::SHA1.hexdigest(password)
-        return true
-      else
-        return false
-      end
-
+      @password_digest == Digest::SHA1.hexdigest(password)
     end
   end
 end
