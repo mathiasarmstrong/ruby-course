@@ -36,6 +36,7 @@ describe DoubleDog::CreateOrder do
   end
 
   it "creates an order" do
+    # binding.pry
     item_1 = DoubleDog.db.create_item(name: 'hot dog', price: 5)
     user = DoubleDog::User.new(1, 'bob', 'pass1')
     expect(DoubleDog.db).to receive(:get_user_by_session_id).and_return(user)

@@ -4,8 +4,8 @@ describe 'Creating an Order' do
 
   it "can create an order with selected items" do
     # Given that I have an employee account
-    admin = DoubleDog.db.create_user(:username => 'bob', :password => 'xyz')
-
+    #admin = DoubleDog.db.create_user(:username => 'bob', :password => 'xyz')
+    DoubleDog.db.create_user(:username => 'bob', :password => 'xyz')
     # And I am signed in
     signin_result = DoubleDog::SignIn.new.run(:username => 'bob', :password => 'xyz')
     expect(signin_result[:success?]).to eq true
