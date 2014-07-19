@@ -13,4 +13,5 @@ module DoubleDog
       items != nil && items.count >= 1
     end
   end
+
 end

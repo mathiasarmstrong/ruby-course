@@ -2,12 +2,14 @@ require 'spec_helper'
 
 describe DoubleDog::SeeAllOrders do
 
+before(:each) {@all_orders_script = DoubleDog::SeeAllOrders.new}
+
   describe "Validation" do
     it "requires the user to be an admin" do
-      script = DoubleDog::SeeAllOrders.new
-      expect(script).to receive(:admin_session?).and_return(false)
+      @all_orders_script = DoubleDog::SeeAllOrders.new
+      expect(@all_orders_script).to receive(:admin_session?).and_return(false)
 
-      result = script.run(admin_session: 'stubbed')
+      result = @all_orders_script.run(admin_session: 'stubbed')
 
       expect(result[:success?]).to eq(false)
       expect(result[:error]).to eq(:not_admin)
@@ -17,13 +19,14 @@ describe DoubleDog::SeeAllOrders do
   it "returns all orders" do
     item_1 = DoubleDog.db.create_item(name: 'hot dog', price: 5)
     item_2 = DoubleDog.db.create_item(name: 'fries', price: 3)
-    order_1 = DoubleDog.db.create_order(session_id: 'stubbed', items: [item_1, item_2])
-    order_2 = DoubleDog.db.create_order(session_id: 'stubbed', items: [item_2])
+    order_1 = DoubleDog.db.create_order(
+      session_id: 'stubbed', items:[ item_1, item_2])
+    order_2 = DoubleDog.db.create_order(
+      session_id: 'stubbed', items: [item_2])
 
-    script = DoubleDog::SeeAllOrders.new
-    expect(script).to receive(:admin_session?).and_return(true)
+    expect(@all_orders_script).to receive(:admin_session?).and_return(true)
 
-    result = script.run(admin_session: 'stubbed')
+    result = @all_orders_script.run(admin_session: 'stubbed')
 
     expect(result[:success?]).to eq(true)
 

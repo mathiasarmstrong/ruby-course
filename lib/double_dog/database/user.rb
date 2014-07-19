@@ -23,14 +23,6 @@ module DoubleDog
         return nil if user_attrs.nil?
         User.new(user_attrs[:id], user_attrs[:username], user_attrs[:password], user_attrs[:admin])
       end
-
-      def get_user_by_session_id(sid)
-        return nil if @sessions[sid].nil?
-        user_id = @sessions[sid][:user_id]
-        user_attrs = @users[user_id]
-        User.new(user_attrs[:id], user_attrs[:username], user_attrs[:password], user_attrs[:admin])
-      end
-
     end
   end
 end

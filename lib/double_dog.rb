@@ -16,6 +16,8 @@ require_relative 'double_dog/database/session.rb'
 require_relative 'double_dog/database/user.rb'
 require_relative 'double_dog/database/inmemory.rb'
 
+require_relative 'double_dog/scripts/Create.rb'
+require_relative 'double_dog/scripts/admin_session.rb'
 require_relative 'double_dog/scripts/create_account.rb'
 require_relative 'double_dog/scripts/create_item.rb'
 require_relative 'double_dog/scripts/sign_in.rb'

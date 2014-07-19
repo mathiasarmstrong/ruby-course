@@ -2,7 +2,7 @@ module DoubleDog
   class Create
 
     def self.run(inputs)
-      run(inputs)
+      self.new.run(inputs)
     end
 
     private

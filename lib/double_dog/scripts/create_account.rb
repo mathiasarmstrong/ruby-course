@@ -1,4 +1,5 @@
 module DoubleDog
+
   class CreateAccount < Create
     include Admin_session
 
