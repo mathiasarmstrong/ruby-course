@@ -1,6 +1,8 @@
+require "set"
 require 'spec_helper'
 
 describe DoubleDog::Database::InMemory do
+
   let(:db) { described_class.new }
 
   it "creates a user" do
