@@ -19,9 +19,9 @@ before(:each) {@all_orders_script = DoubleDog::SeeAllOrders.new}
   it "returns all orders" do
     item_1 = DoubleDog.db.create_item(name: 'hot dog', price: 5)
     item_2 = DoubleDog.db.create_item(name: 'fries', price: 3)
-    order_1 = DoubleDog.db.create_order(
+    DoubleDog.db.create_order(
       session_id: 'stubbed', items:[ item_1, item_2])
-    order_2 = DoubleDog.db.create_order(
+    DoubleDog.db.create_order(
       session_id: 'stubbed', items: [item_2])
 
     expect(@all_orders_script).to receive(:admin_session?).and_return(true)

@@ -22,13 +22,22 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = 'random'
-
-
-
-
-
-
-
-
-
 end
+
+shared_examples_for 'Users' do
+  it "is a user" do
+    expect(user.id).to_not be_nil
+    expect(user.username).to eq 'alice'
+    expect(user.has_password? 'pass1').to eq true
+  end
+end
+
+shared_examples_for 'Item' do
+  it 'is an item' do
+    expect(retrieved_item).to be_a DoubleDog::Item
+    expect(retrieved_item.name).to eq 'hot dog'
+    expect(retrieved_item.price).to eq 5
+  end
+end
+
+

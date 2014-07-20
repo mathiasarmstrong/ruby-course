@@ -18,7 +18,6 @@ describe DoubleDog::CreateOrder do
       user = DoubleDog::User.new(1, 'bob', 'pass1')
       expect(DoubleDog.db).to receive(:get_user_by_session_id).and_return(user)
 
-
       result = @order_script.run(session_id: 'stubbed', items: nil)
 
       expect(result[:success?]).to eq(false)
@@ -28,7 +27,6 @@ describe DoubleDog::CreateOrder do
     it "requires at least one item" do
       user = DoubleDog::User.new(1, 'bob', 'pass1')
       expect(DoubleDog.db).to receive(:get_user_by_session_id).and_return(user)
-
 
       result = @order_script.run(session_id: 'stubbed', items: [])
 
