@@ -5,6 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+User.all.each {|u| u.destroy}
 User.create([
   {
     name: "Taylor Smith",
@@ -16,6 +17,7 @@ User.create([
   }
   ])
 
+Video.all.each {|u| u.destroy}
 Video.create([
   {
     title: "Gladiator",
@@ -31,6 +33,7 @@ Video.create([
   }
   ])
 
+Sound.all.each {|u| u.destroy}
 Sound.create([
   {
     title: "Files",
