@@ -1,4 +1,9 @@
 <h1>Sounds#show</h1>
+<%= link_to "Edit this sound", edit_sound_path(@sound) %>
+<%= link_to "Destroy this sound", {action: :destroy, id: @sound.id}, method: :delete %>
+<br>
+<br>
+<br>
 
 <%= @sound.title %> </br>
 

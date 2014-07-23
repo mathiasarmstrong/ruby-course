@@ -1,8 +1,10 @@
 <h1>Video#index</h1>
-<p>Find me in app/views/video/index.html.erb</p>
+<%= link_to "Sounds", sounds_path %><br>
+<%= link_to "Create a new video", new_video_path %>
+<br><br><br>
 
 <% @videos.each do |video| %>
-<%= video.title %> <br>
+<%= link_to video.title, video %> <br>
 <%= video.description %> <br>
 <iframe width="560" height="315" src="//www.youtube.com/embed/<%=video.youtube_id%>" frameborder="0" allowfullscreen></iframe><br>
 <% end %>

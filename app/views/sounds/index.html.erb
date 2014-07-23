@@ -1,4 +1,7 @@
 <h1>Sound#index</h1>
+<%= link_to "Videos", videos_path %><br>
+<%= link_to "Create a new sound", new_sound_path %>
+<br><br><br>
 
 <% @sounds.each do |sound| %>
 <%= sound.title %> <br>

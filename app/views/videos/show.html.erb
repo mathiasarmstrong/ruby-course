@@ -1,5 +1,10 @@
 <h1>Videos#show</h1>
 <p>Find me in app/views/video/show.html.erb</p>
+<%= link_to "Edit this video", edit_video_path(@video) %>
+<%= link_to "Destroy this video", {action: :destroy, id: @video.id}, method: :delete %>
+<br>
+<br>
+<br>
 
 <%= @video.title %> </br>
 <%= @video.description %> </br>
