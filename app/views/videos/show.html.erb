@@ -12,7 +12,7 @@
 
 <%= form_for @comment do |f| %>
   <%= f.text_field :message %>
-  <%= f.hidden_field :video_id, :value => @comment.video.id %>
+  <%= f.hidden_field :video_id, :value => @comment.commentable_id %>
 
   <%= f.submit :message %>
 <% end %>

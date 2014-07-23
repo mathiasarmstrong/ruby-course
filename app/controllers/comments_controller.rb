@@ -1,6 +1,5 @@
 class CommentsController < ApplicationController
   def create
-
     @comment = Comment.new(comment_params)
     if @comment.save
       redirect_to @comment.video
@@ -9,6 +8,6 @@ class CommentsController < ApplicationController
 
   private
   def comment_params
-    params.require(:comment).permit(:message, :video_id)
+    params.require(:comment).permit(:message, :commentable_id)
   end
 end

@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe SoundController do
+describe SoundsController do
 
 end
