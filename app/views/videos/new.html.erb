@@ -1,8 +1,8 @@
 <h1>Edit a video</h1>
 <p>Find me in app/views/videos/edit.html.erb</p>
 
-<form action=<%="/videos/#{params[:id]}"%> method="post">
-  <input name="_method" type="hidden" value="put">
+<form action=<%="/videos/#{params[:id]}"%> method="POST">
+  <input name="_method" type="hidden" value="post">
   Title: <input type="text" name="video[title]"><br>
   Description: <input type="text" name="video[description]"><br>
   Youtube ID: <input type="text" name="video[youtube_id]"><br>
