@@ -1,0 +1,9 @@
+<h1>Edit a Sound</h1>
+
+<form action=<%="/sounds/#{params[:id]}"%> method="POST">
+  <input name="_method" type="hidden" value="post">
+  Title: <input type="text" name="sound[title]"><br>
+  Soundcloud URL: <input type="text" name="sound[soundcloud_url]"><br>
+  <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+  <input type="submit" value="submit">
+</form>
