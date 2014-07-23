@@ -1,6 +1,10 @@
 <h1>Sounds#show</h1>
 
 <%= @sound.title %> </br>
-<%= @sound.description %> </br>
 
-<iframe width="560" height="315" src="//www.youtube.com/embed/<%=@video.youtube_id%>" frameborder="0" allowfullscreen></iframe> </br>
+  <object height="81" width="100%" id="yourPlayerId" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000">
+    <param name="movie" value="http://player.soundcloud.com/player.swf?url=<%= @sound.soundcloud_url %>&enable_api=true&object_id=yourPlayerId"></param>
+    <param name="allowscriptaccess" value="always"></param>
+    <embed allowscriptaccess="always" height="81" src="http://player.soundcloud.com/player.swf?url=<%= @sound.soundcloud_url %>&enable_api=true&object_id=yourPlayerId" type="application/x-shockwave-flash" width="100%" name="yourPlayerId"></embed>
+  </object>
+ </br>
