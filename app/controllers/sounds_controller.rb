@@ -32,6 +32,9 @@ class SoundsController < ApplicationController
 
   def create
     @sound
+    sound = Sound.new(sound_params)
+    sound.save
+    redirect_to sounds_path
   end
 
   private

@@ -4,7 +4,7 @@ class VideosController < ApplicationController
   end
 
   def show
-    @video = Video.find_by(params[:id])
+    @video = Video.find(params[:id])
     @comments = @video.comments
     @comment = @video.comments.new
   end
