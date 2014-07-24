@@ -13,7 +13,7 @@ class SoundsController < ApplicationController
   def destroy
     @sound = Sound.find(params[:id])
     @sound.destroy
-    redirect_to :index
+    redirect_to sounds_path
   end
 
   def new
