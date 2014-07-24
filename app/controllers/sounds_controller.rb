@@ -6,6 +6,8 @@ class SoundsController < ApplicationController
 
   def show
     @sound = Sound.find(params[:id])
+    @comments = @sound.comments
+    @comment = @sound.comments.new
   end
 
   def destroy
